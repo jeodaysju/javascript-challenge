@@ -34,19 +34,41 @@ function runEnter() {
     // Select the input element and get the raw HTML node
     var datetimeInput = d3.select("#datetime");
     var cityInput = d3.select("#city");
+    var shapeInput = d3.select("#shape");
   
     // Get the value property of the input element
     var dateValue = datetimeInput.property("value");
     var cityValue = cityInput.property("value");
+    var shapeValue = shapeInput.property("value");
   
     console.log(`Date Value is: ${dateValue}`);
     console.log(`City Value is: ${cityValue}`);
+    console.log(`Shape Value is: ${shapeValue}`);
     // console.log(ufo);
-  
-    var filteredData = ufo.filter(u => u.datetime === dateValue && u.city === cityValue);
-  
-    // console.log(`Filtered Data`);
-    // console.log(filteredData);
+
+    // var filteredData = ufo.filter(u => u.datetime === dateValue);
+
+    if (dateValue != '' && cityValue != '' && shapeValue != '') {
+        var filteredData = ufo.filter(u => u.datetime === dateValue && u.city === cityValue && u.shape === shapeValue);
+        }
+      else if (dateValue != '' && cityValue != '' && shapeValue === '') {
+          var filteredData = ufo.filter(u => u.datetime === dateValue && u.city === cityValue);
+        }
+      else if (dateValue != '' && cityValue === '' && shapeValue != '') {
+          var filteredData = ufo.filter(u => u.datetime === dateValue && u.shape === shapeValue);
+        }
+      else if (dateValue != '' && cityValue === '' && shapeValue === '') {
+          var filteredData = ufo.filter(u => u.datetime === dateValue);
+        }
+      else if (dateValue === '' && cityValue != '' && shapeValue != '') {
+        var filteredData = ufo.filter(u => u.city === cityValue && u.shape === shapeValue);
+        }
+      else if (dateValue === '' && cityValue != '' && shapeValue === '')  {
+          var filteredData = ufo.filter(u => u.city === cityValue);
+        }
+      else if (dateValue === '' && cityValue === '' && shapeValue != '')  {
+          var filteredData = ufo.filter(u => u.shape === shapeValue);
+        }
 
     // Then, select the tbody element
     var table = d3.select("tbody");
